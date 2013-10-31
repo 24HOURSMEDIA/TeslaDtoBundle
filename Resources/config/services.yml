@@ -1,0 +1,31 @@
+parameters:
+
+     tesla_dto.assembler.class: Tesla\Bundle\DtoBundle\Assembler
+     tesla_dto.selection_strategy_manager.class: Tesla\Bundle\DtoBundle\Dto\Strategy\StrategyManager
+
+     tesla_dto.reader_cache_path: %kernel.cache_dir%/tesla_annot_reader
+
+services:
+
+    tesla_dto.asm_selection_strategy_manager:
+        class: %tesla_dto.selection_strategy_manager.class%
+        public: false
+
+    tesla_dto.asm_default_selection_strategy:
+        class: Tesla\Bundle\DtoBundle\Dto\Strategy\AsmDefaultStrategy
+        public: false
+        tags:
+            - { name: asm_selection_strategy, alias: default }
+
+    tesla_dto.abstract_assembler:
+        class: %tesla_dto.assembler.class%
+        abstract: true
+        public: true
+        lazy: false
+        calls:
+            - [setAsmSelectionStrategyManager, [@tesla_dto.asm_selection_strategy_manager]]
+
+
+
+
+
