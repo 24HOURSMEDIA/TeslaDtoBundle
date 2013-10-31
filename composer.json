@@ -1,0 +1,23 @@
+{
+    "name": "24hoursmedia/tesla-dto-bundle",
+    "description": "SF2 Bundle DTO/Assembler design pattern",
+    "type": "symfony-bundle",
+    "authors": [
+        {
+            "name": "E.Bachman",
+            "email": "e.bachman@24hoursmedia.com"
+        }
+    ],
+    "keywords": [],
+    "homepage": "http://www.24hoursmedia.com/tesla",
+    "license": [
+        "MIT"
+    ],
+    "autoload": {
+        "psr-0": {
+            "Tesla\\Bundle\\DtoBundle": ""
+        }
+    },
+    "target-dir": "Tesla/Bundle/DtoBundle",
+    "minimum-stability": "dev"
+}
