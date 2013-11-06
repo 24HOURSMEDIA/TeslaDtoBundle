@@ -71,35 +71,10 @@ class Assembler extends AsmChain implements AssemblerInterface
         $element = new AsmChainElement($asm, $attrs);
         $element->setStrategy($strategy);
         $this->addAsm($element);
-        if (isset($attrs['mapping'])) {
-            $map = $attrs['mapping'];
-            if (!isset($this->mappedChains[$map])) {
-                $this->mappedChains[$map] = new AsmChain();
-            }
-            $this->mappedChains[$map]->addAsm($element);
-        }
+
     }
 
-    /**
-     * x
-     * @param $domainObject
-     * @param $map
-     * @param AssemblyContext $context
-     * @return AssemblyProduct
-     * @deprecated
-     */
-    public function getProductFromMappedAsm($domainObject, $map, AssemblyContext $context = null)
-    {
-        $context = $this->createContext($context);
-        if (!isset($this->mappedChains[$map])) {
-            return new AssemblyProduct(null, false);
-        }
-        $request = new AsmRequest($context);
-        // no need to set the type, it will be triggered only by mapping strategies
-        $request->setSubject($domainObject);
-        $product = $this->mappedChains[$map]->assemble($request);
-        return $product;
-    }
+
 
     /**
      * Get an assembled product from this configured assembler

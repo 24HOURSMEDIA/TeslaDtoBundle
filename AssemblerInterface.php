@@ -30,5 +30,5 @@ interface AssemblerInterface
      */
     public function getProduct($domainObject, $dtoType, AssemblyContext $context = null);
 
-    public function getProductFromMappedAsm($domainObject, $map, AssemblyContext $context = null);
+
 }
