@@ -68,7 +68,10 @@ final class AsmChainElement implements AsmInterface
 
     public function assemble(AsmRequest $request)
     {
+
+
         if ($this->strategy && $this->asm && $this->strategy->pass($request, $this->attrs, $this->asm)) {
+
             if ($this->asm instanceof AsmPreAssemblyCheckInterface) {
                 if (!$this->asm->preAssemblyCheck($request)) {
                     return new AssemblyProduct(null, false);

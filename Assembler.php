@@ -18,6 +18,7 @@ use Tesla\Bundle\DtoBundle\Dto\Assembler\AssemblyProduct;
 use Tesla\Bundle\DtoBundle\Dto\Assembler\AssemblyContext;
 use Tesla\Bundle\DtoBundle\Dto\Assembler\AsmRequest;
 use Tesla\Bundle\DtoBundle\Dto\Strategy\StrategyManager;
+use Tesla\Bundle\DtoBundle\MetadataReader;
 
 /**
  * Class Assembler
@@ -37,6 +38,11 @@ class Assembler extends AsmChain implements AssemblerInterface
     private $stratMan;
 
     /**
+     * @var MetadataReader
+     */
+    private $metaDataReader;
+
+    /**
      * Sets the manager for selection strategies for Asm components
      * @param $stratMan
      */
@@ -52,6 +58,25 @@ class Assembler extends AsmChain implements AssemblerInterface
         }
         $context->initialize($this);
         return $context;
+    }
+
+    /**
+     * @param \MetadataReader $metaReader
+     * @return $this
+     */
+    public function setMetaDataReader($metaReader)
+    {
+        $this->metaDataReader = $metaReader;
+
+        return $this;
+    }
+
+    /**
+     * @return \MetadataReader
+     */
+    public function getMetaDataReader()
+    {
+        return $this->metaDataReader;
     }
 
     /**
@@ -89,6 +114,7 @@ class Assembler extends AsmChain implements AssemblerInterface
         $context = $this->createContext($context);
         $request = new AsmRequest($context);
         $request->setSubject($domainObject)->setDtoType($dtoType);
+
         $product = $this->assemble($request);
         return $product;
     }

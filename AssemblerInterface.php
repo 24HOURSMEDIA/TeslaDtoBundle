@@ -12,7 +12,7 @@
 namespace Tesla\Bundle\DtoBundle;
 use Tesla\Bundle\DtoBundle\Dto\Assembler\AssemblyContext;
 use Tesla\Bundle\DtoBundle\Dto\Assembler\AssemblyProduct;
-
+use Tesla\Bundle\DtoBundle\MetadataReader;
 /**
  * Class AssemblerInterface
  * Get an assembled product from somewhere
@@ -30,5 +30,9 @@ interface AssemblerInterface
      */
     public function getProduct($domainObject, $dtoType, AssemblyContext $context = null);
 
+    /**
+     * @return MetadataReader
+     */
+    public function getMetaDataReader();
 
 }

@@ -4,6 +4,9 @@ parameters:
      tesla_dto.selection_strategy_manager.class: Tesla\Bundle\DtoBundle\Dto\Strategy\StrategyManager
 
      tesla_dto.reader_cache_path: %kernel.cache_dir%/tesla_annot_reader
+     tesla_dto.controller_class_resolver.class: Tesla\Bundle\DtoBundle\Util\ControllerClassResolver
+     tesla_dto.metadata_reader.class: Tesla\Bundle\DtoBundle\MetaDataReader
+     tesla_dto.asm_annotation_strategy.class: Tesla\Bundle\DtoBundle\Dto\Strategy\AsmAnnotationStrategy
 
 services:
 
@@ -24,8 +27,29 @@ services:
         lazy: false
         calls:
             - [setAsmSelectionStrategyManager, [@tesla_dto.asm_selection_strategy_manager]]
+            - [setMetaDataReader, [@tesla_dto.metadata_reader]]
 
 
+    tesla_dto.metadata_reader:
+        class: %tesla_dto.metadata_reader.class%
+        arguments:
+            - %tesla_dto.reader_cache_path%
+            - @annotation_reader
+            - %KERNEL.ENVIRONMENT%
+            - @tesla_dto.controller_class_resolver
+
+
+    tesla_dto.controller_class_resolver:
+        class: %tesla_dto.controller_class_resolver.class%
+        calls:
+            - [setRouter, [@router]]
+
+    tesla_dto.asm_annotation_strategy:
+        class: %tesla_dto.asm_annotation_strategy.class%
+        calls:
+            - [setReader, [@tesla_dto.metadata_reader]]
+        tags:
+            - { name: asm_selection_strategy, alias: annotation }
 
 
 

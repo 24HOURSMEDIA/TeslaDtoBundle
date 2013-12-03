@@ -51,6 +51,7 @@ class AsmChain implements AsmInterface
      */
     function assemble(AsmRequest $request)
     {
+
         foreach ($this->elements as $element) {
             $product = $element->assemble($request);
             if ($product->isSuccess()) {

@@ -11,22 +11,21 @@
 
 namespace Tesla\Bundle\DtoBundle\Util;
 
-use JMS\DiExtraBundle\Annotation as DI;
+
 use Symfony\Component\Routing\RouterInterface;
 
 /**
  * Class ControllerClassResolver
  * @package Tesla\Bundle\DtoBundle\Util
- * @DI\Service("tesla_dto.controller_class_resolver")
  */
 class ControllerClassResolver
 {
 
     /**
-     * @DI\Inject("router")
+     *
      * @var RouterInterface
      */
-    public $router;
+    private $router;
 
     private $classMap = array();
 
@@ -38,6 +37,10 @@ class ControllerClassResolver
     {
 
         $this->classMap = $map;
+    }
+
+    function setRouter(RouterInterface $router) {
+        $this->router = $router;
     }
 
     /**

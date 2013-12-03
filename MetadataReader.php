@@ -11,7 +11,7 @@
 
 namespace Tesla\Bundle\DtoBundle;
 
-use JMS\DiExtraBundle\Annotation as DI;
+
 use Doctrine\Common\Util\ClassUtils;
 use Doctrine\Common\Annotations\Reader;
 use Doctrine\Common\Annotations\FileCacheReader;
@@ -23,7 +23,6 @@ use ProxyManager\Proxy\LazyLoadingInterface;
 /**
  * Class MetaDataReader
  * @package Tesla\Bundle\DtoBundle
- * @DI\Service("tesla_dto.metadata_reader")
  */
 class MetadataReader
 {
@@ -51,28 +50,20 @@ class MetadataReader
     private $responseTypeCache = array();
 
     /**
-     * @DI\Inject("%tesla_dto.reader_cache_path%")
      * @var string
      */
     public $cacheDir = "";
 
 
     /**
-     * @DI\Inject("tesla_dto.controller_class_resolver")
      * @var ControllerClassResolver
      */
     public $controllerResolver;
 
     private $debug = false;
 
-    /**
-     * @DI\InjectParams({
-     *     "cacheDir" = @DI\Inject("%tesla_dto.reader_cache_path%"),
-     *     "reader" = @DI\Inject("annotation_reader"),
-     *      "env" = @DI\Inject("%KERNEL.ENVIRONMENT%")
-     * })
-     */
-    public function __construct($cacheDir, $reader, $env)
+
+    public function __construct($cacheDir, $reader, $env, ControllerClassResolver $resolver)
     {
         if (!is_dir($cacheDir)) {
             $this->createDir($cacheDir);
@@ -84,6 +75,7 @@ class MetadataReader
         $this->debug = stristr($env, 'dev');
         $this->cacheDir = $cacheDir;
         $this->reader = new FileCacheReader($reader, $this->cacheDir, $this->debug);
+        $this->controllerResolver = $resolver;
 
     }
 
