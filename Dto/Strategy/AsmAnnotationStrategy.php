@@ -24,7 +24,7 @@ use Tesla\Bundle\DtoBundle\Dto\Assembler\AsmInterface;
 class AsmAnnotationStrategy implements AsmSelectionStrategyInterface
 {
     /**
-     * @var MetaDataReader
+     * @var MetadataReader
      */
     public $reader;
 

@@ -5,7 +5,7 @@ parameters:
 
      tesla_dto.reader_cache_path: %kernel.cache_dir%/tesla_annot_reader
      tesla_dto.controller_class_resolver.class: Tesla\Bundle\DtoBundle\Util\ControllerClassResolver
-     tesla_dto.metadata_reader.class: Tesla\Bundle\DtoBundle\MetaDataReader
+     tesla_dto.metadata_reader.class: Tesla\Bundle\DtoBundle\MetadataReader
      tesla_dto.asm_annotation_strategy.class: Tesla\Bundle\DtoBundle\Dto\Strategy\AsmAnnotationStrategy
 
 services:
